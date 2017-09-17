@@ -1,0 +1,22 @@
+{
+  "name": "kotori-api-test",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register --require babel-polyfill --timeout 30000 test/**/*.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "btoa": "^1.1.2",
+    "got": "^7.1.0",
+    "mocha": "^3.5.0",
+    "power-assert": "^1.4.4",
+    "trash-cli": "^1.4.0"
+  }
+}

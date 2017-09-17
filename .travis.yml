@@ -1,13 +1,15 @@
-language: php
-php:
-  - 5.6
+language: node_js
+
+node_js:
+  - 8
 
 cache:
   directories:
-    - $HOME/.composer/cache
+  - node_modules
+  - $HOME/.yarn-cache
 
-before_script:
-  - composer install
+install:
+  - yarn install
 
 script:
-  - composer test
+  - npm test
