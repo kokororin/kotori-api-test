@@ -2,9 +2,8 @@
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException as HttpClientException;
 use GuzzleHttp\Psr7\Request as HttpRequest;
-use PHPUnit\Framework\TestCase;
 
-class PixivTest extends TestCase
+class PixivTest extends PHPUnit_Framework_TestCase
 {
     protected static $client = null;
 
