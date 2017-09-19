@@ -15,6 +15,7 @@
     "babel-preset-env": "^1.6.0",
     "btoa": "^1.1.2",
     "got": "^7.1.0",
+    "image-size": "^0.6.1",
     "mocha": "^3.5.0",
     "power-assert": "^1.4.4",
     "trash-cli": "^1.4.0"

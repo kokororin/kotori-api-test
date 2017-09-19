@@ -1,46 +1,76 @@
 import assert from 'power-assert';
 import got from 'got';
 import btoa from 'btoa';
+import sizeOf from 'image-size';
 
 const baseURL = 'https://api.pixiv.moe';
 
 describe('api.pixiv.moe', () => {
-	it('/v1/ranking', async () => {
-		const response = await got(`${baseURL}/v1/ranking`, {
-			json: true
-		});
-		const data = response.body;
+  it('/v1/ranking', async () => {
+    const response = await got(`${baseURL}/v1/ranking`, {
+      json: true
+    });
+    const data = response.body;
 
-		assert.equal('success', data.status);
-		assert.equal(true, Array.isArray(data.response.works));
-		assert.equal(true, data.response.works.length > 0);
-	});
+    assert.equal('success', data.status);
+    assert.equal(true, Array.isArray(data.response.works));
+    assert.equal(true, data.response.works.length > 0);
+  });
 
-	it('/v1/illust/([0-9]+)', async () => {
-		const response = await got(`${baseURL}/v1/illust/64945741`, {
-			json: true
-		});
-		const data = response.body;
+  it('/v1/illust/([0-9]+)', async () => {
+    const response = await got(`${baseURL}/v1/illust/64945741`, {
+      json: true
+    });
+    const data = response.body;
 
-		assert.equal('success', data.status);
-		assert.equal(true, Object.keys(data.response.image_urls).length > 0);
-	});
+    assert.equal('success', data.status);
+    assert.equal(true, Object.keys(data.response.image_urls).length > 0);
 
-	it('/v1/illust/comments/([0-9]+)', async () => {
-		const response = await got(`${baseURL}/v1/illust/comments/64945741`, {
-			json: true
-		});
-		const data = response.body;
+    const fetchImage = url => {
+      return new Promise(resolve => {
+        const chunks = [];
+        let headers = {};
+        const stream = got.stream(url);
+        stream.on('response', response => {
+          headers = response.headers;
+        });
+        stream.on('data', chunk => {
+          chunks.push(chunk);
+        });
+        stream.on('end', () => {
+          const buffer = Buffer.concat(chunks);
+          resolve({
+            size: sizeOf(buffer),
+            headers
+          });
+        });
+      });
+    };
 
-		assert.equal(true, data.comments.length > 0);
-	});
+    Object.keys(data.response.image_urls).forEach(async key => {
+      const proxyImgURL = data.response.image_urls[key];
+      const imageInfo = await fetchImage(proxyImgURL);
 
-	it('/v1/image/(.+)', async () => {
-		const pixivImg =
-			'https://i.pximg.net/c/600x600/img-master/img/2017/09/17/14/47/42/65001705_p0_master1200.jpg';
-		const response = await got(`${baseURL}/v1/image/${btoa(pixivImg)}`);
-		const data = response.body;
+      assert.equal(imageInfo.headers['x-image-width'], imageInfo.size.width);
+      assert.equal(imageInfo.headers['x-image-height'], imageInfo.size.height);
+    });
+  });
 
-		assert.equal(true, data.length > 2000);
-	});
+  it('/v1/illust/comments/([0-9]+)', async () => {
+    const response = await got(`${baseURL}/v1/illust/comments/64945741`, {
+      json: true
+    });
+    const data = response.body;
+
+    assert.equal(true, data.comments.length > 0);
+  });
+
+  it('/v1/image/(.+)', async () => {
+    const pixivImg =
+      'https://i.pximg.net/c/600x600/img-master/img/2017/09/17/14/47/42/65001705_p0_master1200.jpg';
+    const response = await got(`${baseURL}/v1/image/${btoa(pixivImg)}`);
+    const data = response.body;
+
+    assert.equal(true, data.length > 2000);
+  });
 });
