@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --require babel-polyfill --timeout 30000 test/**/*.js"
+    "test": "mocha --compilers js:babel-register --require babel-polyfill --timeout 1000000 test/**/*.js"
   },
   "keywords": [],
   "author": "",
