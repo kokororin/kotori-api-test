@@ -1,8 +1,7 @@
 import assert from 'power-assert';
 import got from 'got';
 import sizeOf from 'image-size';
-
-const baseURL = 'https://api.pixiv.moe';
+import mlog from 'mocha-logger';
 
 const fetchImage = (url, options = {}) => {
   return new Promise(resolve => {
@@ -46,6 +45,8 @@ const testImages = async images => {
 };
 
 describe('api.pixiv.moe', () => {
+  const baseURL = 'https://api.pixiv.moe';
+
   it('/v1/ranking', async () => {
     const response = await got(`${baseURL}/v1/ranking`, {
       json: true
@@ -56,9 +57,18 @@ describe('api.pixiv.moe', () => {
     assert.equal(true, Array.isArray(data.response.works));
     assert.equal(true, data.response.works.length > 10);
 
-    for (const work of data.response.works) {
-      console.log(` testing Rank ${work.rank}`);
-      await testImages(work.work.image_urls);
+    for (const value of data.response.works) {
+      const work = value.work;
+      mlog.log(`testing Rank ${value.rank}`);
+      assert.equal(true, work.hasOwnProperty('id'));
+      assert.equal(true, work.hasOwnProperty('title'));
+      assert.equal(true, work.hasOwnProperty('caption'));
+      assert.equal(true, work.hasOwnProperty('tags'));
+      assert.equal(true, work.hasOwnProperty('image_urls'));
+      assert.equal(true, work.hasOwnProperty('width'));
+      assert.equal(true, work.hasOwnProperty('height'));
+      assert.equal(true, work.hasOwnProperty('stats'));
+      await testImages(work.image_urls);
     }
   });
 

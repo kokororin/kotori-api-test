@@ -1458,7 +1458,13 @@ mkdirp@0.5.1, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha@^3.5.0:
+mocha-logger@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/mocha-logger/-/mocha-logger-1.0.5.tgz#9e896ab410e8d8d40611d81c11f6423c887cf5e3"
+  dependencies:
+    mocha "^3.2.0"
+
+mocha@^3.2.0, mocha@^3.5.0:
   version "3.5.3"
   resolved "https://registry.npmjs.org/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
   dependencies:
