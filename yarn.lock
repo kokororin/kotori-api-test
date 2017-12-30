@@ -1790,9 +1790,9 @@ pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
-puppeteer@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-0.13.0.tgz#2e6956205f2c640964c2107f620ae1eef8bde8fd"
+puppeteer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-0.11.0.tgz#0a2b856f3c2745a5884c6dde9fb44f96663988ed"
   dependencies:
     debug "^2.6.8"
     extract-zip "^1.6.5"

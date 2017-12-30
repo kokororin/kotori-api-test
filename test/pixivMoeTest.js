@@ -110,7 +110,7 @@ describe('pixiv.moe', () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://pixiv.moe/illust/55388816');
-    await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    await page.waitForNavigation({ waitUntil: 'networkidle' });
 
     const title = await page.evaluate(() => {
       return document.title;
