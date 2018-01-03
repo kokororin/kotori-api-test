@@ -78,7 +78,7 @@ describe('api.pixiv.moe', () => {
     const data = response.body;
 
     expect(data.status).to.equal('success');
-    expect(Object.keys(data.response.image_urls)).to.be.above(0);
+    expect(Object.keys(data.response.image_urls).length).to.be.above(0);
     await testImages(data.response.image_urls);
   });
 
