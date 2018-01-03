@@ -1,4 +1,4 @@
-import assert from 'power-assert';
+import { expect } from 'chai';
 import got from 'got';
 import mlog from 'mocha-logger';
 
@@ -29,11 +29,9 @@ describe('api.kotori.love', () => {
         followRedirect: false
       });
 
-      assert.equal(302, response.statusCode);
-      assert.equal(
-        true,
-        /m([0-9]).music.126.net/.test(response.headers.location)
-      );
+      expect(response.statusCode).to.equal(302);
+      expect(/m([0-9]).music.126.net/.test(response.headers.location)).to.be
+        .true;
     }
   });
 
@@ -44,11 +42,9 @@ describe('api.kotori.love', () => {
         followRedirect: false
       });
 
-      assert.equal(302, response.statusCode);
-      assert.equal(
-        true,
-        /p([0-9]).music.126.net/.test(response.headers.location)
-      );
+      expect(response.statusCode).to.equal(302);
+      expect(/p([0-9]).music.126.net/.test(response.headers.location)).to.be
+        .true;
     }
   });
 });

@@ -13,13 +13,13 @@
     "babel-core": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "chai": "^4.1.2",
+    "cheerio": "^1.0.0-rc.2",
     "eslint": "^4.7.2",
     "eslint-config-kotori": "^0.1.5",
     "got": "^7.1.0",
     "image-size": "^0.6.1",
     "mocha": "^3.5.0",
-    "mocha-logger": "^1.0.5",
-    "power-assert": "^1.4.4",
-    "puppeteer": "^0.11.0"
+    "mocha-logger": "^1.0.5"
   }
 }

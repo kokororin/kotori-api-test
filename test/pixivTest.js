@@ -1,4 +1,4 @@
-import assert from 'power-assert';
+import { expect } from 'chai';
 import got from 'got';
 import sizeOf from 'image-size';
 import mlog from 'mocha-logger';
@@ -33,14 +33,13 @@ const testImages = async images => {
       headers: { Referer: 'https://www.pixiv.net' }
     });
 
-    assert.equal(
-      originImgInfo.headers['content-type'],
-      proxyImgInfo.headers['content-type']
+    expect(proxyImgInfo.headers['content-type']).to.equal(
+      originImgInfo.headers['content-type']
     );
-    assert.equal(true, proxyImgInfo.size.width > 0);
-    assert.equal(true, proxyImgInfo.size.height > 0);
-    assert.equal(originImgInfo.size.width, proxyImgInfo.size.width);
-    assert.equal(originImgInfo.size.height, proxyImgInfo.size.height);
+    expect(proxyImgInfo.size.width).to.be.above(0);
+    expect(proxyImgInfo.size.height).to.be.above(0);
+    expect(proxyImgInfo.size.width).to.equal(originImgInfo.size.width);
+    expect(proxyImgInfo.size.height).to.equal(originImgInfo.size.height);
   }
 };
 
@@ -53,21 +52,21 @@ describe('api.pixiv.moe', () => {
     });
     const data = response.body;
 
-    assert.equal('success', data.status);
-    assert.equal(true, Array.isArray(data.response.works));
-    assert.equal(true, data.response.works.length > 10);
+    expect(data.status).to.equal('success');
+    expect(Array.isArray(data.response.works)).to.be.true;
+    expect(data.response.works.length).to.be.above(10);
 
     for (const value of data.response.works) {
       const work = value.work;
       mlog.log(`testing Rank ${value.rank}`);
-      assert.equal(true, work.hasOwnProperty('id'));
-      assert.equal(true, work.hasOwnProperty('title'));
-      assert.equal(true, work.hasOwnProperty('caption'));
-      assert.equal(true, work.hasOwnProperty('tags'));
-      assert.equal(true, work.hasOwnProperty('image_urls'));
-      assert.equal(true, work.hasOwnProperty('width'));
-      assert.equal(true, work.hasOwnProperty('height'));
-      assert.equal(true, work.hasOwnProperty('stats'));
+      expect(work).to.have.property('id');
+      expect(work).to.have.property('title');
+      expect(work).to.have.property('caption');
+      expect(work).to.have.property('tags');
+      expect(work).to.have.property('image_urls');
+      expect(work).to.have.property('width');
+      expect(work).to.have.property('height');
+      expect(work).to.have.property('stats');
       await testImages(work.image_urls);
     }
   });
@@ -78,8 +77,8 @@ describe('api.pixiv.moe', () => {
     });
     const data = response.body;
 
-    assert.equal('success', data.status);
-    assert.equal(true, Object.keys(data.response.image_urls).length > 0);
+    expect(data.status).to.equal('success');
+    expect(Object.keys(data.response.image_urls)).to.be.above(0);
     await testImages(data.response.image_urls);
   });
 
@@ -89,6 +88,6 @@ describe('api.pixiv.moe', () => {
     });
     const data = response.body;
 
-    assert.equal(true, data.comments.length > 0);
+    expect(data.comments.length).to.be.above(0);
   });
 });
