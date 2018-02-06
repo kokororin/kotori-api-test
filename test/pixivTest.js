@@ -56,7 +56,10 @@ describe('api.pixiv.moe', () => {
     expect(Array.isArray(data.response.works)).to.be.true;
     expect(data.response.works.length).to.be.above(10);
 
-    for (const value of data.response.works) {
+    for (const [key, value] of Object.entries(data.response.works)) {
+      if (key > 10) {
+        break;
+      }
       const work = value.work;
       mlog.log(`testing Rank ${value.rank}`);
       expect(work).to.have.property('id');
