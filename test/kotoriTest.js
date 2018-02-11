@@ -23,28 +23,46 @@ describe('api.kotori.love', () => {
   ];
 
   it('/netease/([0-9]+).mp3', async () => {
+    let codeSuccess = false;
+    let urlSuccess = false;
     for (const id of songs) {
       mlog.log(`testing ${id}`);
       const response = await got(`${baseURL}/netease/${id}.mp3`, {
         followRedirect: false
       });
 
-      expect(response.statusCode).to.equal(302);
-      expect(/m([0-9]).music.126.net/.test(response.headers.location)).to.be
-        .true;
+      if (response.statusCode === 302) {
+        codeSuccess = true;
+      }
+
+      if (/m(\d).music.126.net/.test(response.headers.location)) {
+        urlSuccess = true;
+      }
     }
+
+    expect(codeSuccess).to.be.true;
+    expect(urlSuccess).to.be.true;
   });
 
   it('/netease/([0-9]+).webp', async () => {
+    let codeSuccess = false;
+    let urlSuccess = false;
     for (const id of songs) {
       mlog.log(`testing ${id}`);
       const response = await got(`${baseURL}/netease/${id}.webp`, {
         followRedirect: false
       });
 
-      expect(response.statusCode).to.equal(302);
-      expect(/p([0-9]).music.126.net/.test(response.headers.location)).to.be
-        .true;
+      if (response.statusCode === 302) {
+        codeSuccess = true;
+      }
+
+      if (/p(\d).music.126.net/.test(response.headers.location)) {
+        urlSuccess = true;
+      }
     }
+
+    expect(codeSuccess).to.be.true;
+    expect(urlSuccess).to.be.true;
   });
 });
