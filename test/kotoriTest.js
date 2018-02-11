@@ -27,9 +27,14 @@ describe('api.kotori.love', () => {
     let urlSuccess = false;
     for (const id of songs) {
       mlog.log(`testing ${id}`);
-      const response = await got(`${baseURL}/netease/${id}.mp3`, {
-        followRedirect: false
-      });
+      let response;
+      try {
+        response = await got(`${baseURL}/netease/${id}.mp3`, {
+          followRedirect: false
+        });
+      } catch (e) {
+        continue;
+      }
 
       if (response.statusCode === 302) {
         codeSuccess = true;
@@ -49,9 +54,14 @@ describe('api.kotori.love', () => {
     let urlSuccess = false;
     for (const id of songs) {
       mlog.log(`testing ${id}`);
-      const response = await got(`${baseURL}/netease/${id}.webp`, {
-        followRedirect: false
-      });
+      let response;
+      try {
+        response = await got(`${baseURL}/netease/${id}.webp`, {
+          followRedirect: false
+        });
+      } catch (e) {
+        continue;
+      }
 
       if (response.statusCode === 302) {
         codeSuccess = true;
