@@ -13,6 +13,3 @@ install:
 
 script:
   - travis_retry npm test
-
-notifications:
-  webhooks: https://api.kotori.love/github/hook/travis
